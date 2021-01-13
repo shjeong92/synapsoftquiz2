@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Synapquiz {
-	ArrayList <String>list = new ArrayList<String>();
+	
+	ArrayList <String>list = new ArrayList <String>();
 	int start_Value = 0, step = 1; //풀이 출력을위한 변수.
 	int current_Value = 0;
 	
@@ -13,6 +14,7 @@ public class Synapquiz {
 		list.clear();
 		calculate();
 	}	
+
 	/*----  리스트에 *,+ 값 추가 : 계산이 끝난후에 풀이를 출력하기 위함.  ----*/	
 	// 값 나누기 2 후에 리스트에 "*" 추가. 
 	public void divide() { 
@@ -24,19 +26,16 @@ public class Synapquiz {
 		current_Value -= 1;
 		list.add("+");
 	}
+	
 	/* 최소의 단계수를 출하는 방법
 	 * 1. 2로 나눌 수 있을때 나누기.
 	 * 2. 2로 나눌 수 없을때 1 빼기. */
-	public void calculate(){ 
-		while(true){
-			/* current_Value !=2 와 current_Value ==2 조건문을 없애면 2단계 풀이 -> 1 * 2 = 2 
-			 * 해당 조건을 없애면 풀이 -> 1 + 1 =  로나오지만 정답에는 영향이 없음.
-			 */
+	public void calculate() { 
+		while(true) {
 			if(current_Value != 0 && current_Value %2 == 0 && current_Value != 2) {     
 				divide();
 			}
-			else if(current_Value != 1 && current_Value %2 == 1 && current_Value != 2)
-			{
+			else if(current_Value != 1 && current_Value %2 == 1 && current_Value != 2) {
 				minus();
 			}
 			else if(current_Value == 2) {
@@ -66,30 +65,29 @@ public class Synapquiz {
 		System.out.println("정답 = "+Integer.toString(list.size())+"단계");
 	}
 	
-	
-	
 	public static void main(String[] args) {
 	
 		Synapquiz sq= new Synapquiz(); //인스턴스 생성
 		Scanner sc = new Scanner(System.in); 
-		String exit_check = "";
+		String input = "";
 		System.out.println("x를 입력하면 종료됩니다.");
 		while(true) {
 			try {
 				System.out.print("N 값을 입력하세요 : ");
-				exit_check = sc.next();
-				if(exit_check.equals("x")) {
+				input = sc.next();
+				if(input.equals("x")) {
 					System.out.println("x를 입력해 종료합니다.");
 					break;
 				}
-				else if(0 < Integer.parseInt(exit_check) && Integer.parseInt(exit_check) <= 1000)
-					sq.init(Integer.parseInt(exit_check));
+				else if(0 < Integer.parseInt(input) && Integer.parseInt(input) <= 1000)
+					sq.init(Integer.parseInt(input));
+				//입력받은  N값이 범위조건을 만족하지 못하는경
 				else
 					System.out.println("Error : 1 <= N <= 1000");
 			}
 			//입력받은 N 값이 x가 아닌 다른 문자인경우 예외처리.
 			catch(Exception e) { 
-				System.out.println("Error : N must be a number!!");
+				System.out.println("Error : N must be a number or letter 'x'");
 			}
 
 		}
